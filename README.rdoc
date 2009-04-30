@@ -1,0 +1,10 @@
+= conditional_dcommit
+
+A command for running your commit tests, rebasing, rerunning if necessary, and dcommitting once everything is all good.
+
+== Copyright
+
+Copyright (c) 2009 Alf Mikula. See LICENSE for details.
+growlNotify.applescript redistributed with permission from Mike Hagedorn.
+Traffic light image provided by Believe Collective (http://www.flickr.com/photos/chainedreactions/)
+Stop sign image provided by ladybeames (http://www.flickr.com/photos/50906336@N00/)
