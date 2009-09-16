@@ -10,6 +10,7 @@ begin
     gem.homepage = "http://github.com/amikula/conditional_dcommit"
     gem.authors = ["Alf Mikula"]
     gem.files.concat(FileList['data/**/*'])
+    %w[open4].each{|d| gem.add_dependency d}
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
