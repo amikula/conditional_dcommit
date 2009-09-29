@@ -34,7 +34,10 @@ module ConditionalDcommit
       puts "firstline: #{firstline}"
       puts "firsterror: #{firsterror}"
 
-      if firsterror && firsterror.chomp =~ /Current branch .* is up to date./
+      matcher = /Current branch .* is up to date./
+
+      if (firsterror && firsterror.chomp =~ matcher) ||
+         (firstline && firstline.chomp =~ matcher)
         retval = false
       else
         puts firstline || firsterror
