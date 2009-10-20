@@ -10,7 +10,13 @@ module ConditionalDcommit
     attr_accessor :status_code
 
     def test_command
-      @test_command ||= ENV['TEST_COMMAND'] || 'script/cruise'
+      @test_command ||= if env_command = ENV['TEST_COMMAND']
+                          env_command
+                        elsif(File.exists?(cruise_file=File.join(%w{script cruise})))
+                          cruise_file
+                        else
+                          'rake'
+                        end
     end
 
     def code_tests_ok?

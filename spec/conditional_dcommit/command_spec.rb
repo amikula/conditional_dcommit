@@ -8,23 +8,32 @@ describe ConditionalDcommit::Command do
   end
 
   describe :test_command do
+    before :each do
+      ENV.stub!(:[]).with('TEST_COMMAND').and_return(nil)
+    end
+
     it "returns the environment variable 'TEST_COMMAND'" do
       ENV.should_receive(:[]).with('TEST_COMMAND').and_return("test command")
 
       subject.test_command.should == 'test command'
     end
 
-    it "defaults to 'script/cruise'" do
-      ENV.should_receive(:[]).and_return(nil)
-
-      subject.test_command.should == 'script/cruise'
+    it "defaults to 'rake'" do
+      subject.test_command.should == 'rake'
     end
 
     it "caches the test_command value" do
       ENV.should_receive(:[]).exactly(1).times.with('TEST_COMMAND').and_return(nil)
 
-      subject.test_command.should == 'script/cruise'
-      subject.test_command.should == 'script/cruise'
+      subject.test_command.should == 'rake'
+      subject.test_command.should == 'rake'
+    end
+
+    it "uses script/cruise if it's available" do
+      cruise_file = File.join(%w{script cruise})
+      File.should_receive(:exists?).with(cruise_file).and_return(true)
+
+      subject.test_command.should == cruise_file
     end
   end
 
